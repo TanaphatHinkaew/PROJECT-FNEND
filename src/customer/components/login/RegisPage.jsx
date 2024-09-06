@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import IconButton from '@mui/material/IconButton';
-import axios from 'axios'; // นำเข้า axios สำหรับการทำ HTTP request
 import { Link, useNavigate } from 'react-router-dom'; // เพิ่ม useNavigate สำหรับการนำทาง
 
 const RegisPage = () => {
@@ -11,24 +10,22 @@ const RegisPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
-  // ฟังก์ชันสำหรับส่งข้อมูลไปยัง backend เพื่อบันทึกผู้ใช้
-  const registerUser = async (newUser) => {
-    try {
-      const response = await axios.post('http://localhost:8080/api/auth/register', newUser);
-      
-      // ตรวจสอบการตอบกลับจาก backend
-      if (response.status === 201 || response.status === 200) {
-        alert('Registration successful!');
-        navigate('/login'); // นำทางไปยังหน้า login หลังจากลงทะเบียนสำเร็จ
-      }
-    } catch (error) {
-      if (error.response && error.response.status === 400) {
-        alert('This email is already registered. Please use a different email.');
-      } else {
-        alert('An error occurred during registration. Please try again.');
-      }
-      console.error('Registration error:', error);
+  // ฟังก์ชันสำหรับบันทึกผู้ใช้ลงใน localStorage
+  const saveUserToLocalStorage = (newUser) => {
+    const existingUsers = JSON.parse(localStorage.getItem('users')) || [];
+    
+    // ตรวจสอบว่ามีผู้ใช้อีเมลเดียวกันอยู่แล้วหรือไม่
+    const isEmailTaken = existingUsers.some(user => user.email === newUser.email);
+    
+    if (isEmailTaken) {
+      alert('This email is already registered. Please use a different email.');
+      return false;
     }
+
+    // บันทึกผู้ใช้ใหม่ลงใน localStorage
+    const updatedUsers = [...existingUsers, newUser];
+    localStorage.setItem('users', JSON.stringify(updatedUsers));
+    return true;
   };
 
   const handleSubmit = (e) => {
@@ -40,7 +37,12 @@ const RegisPage = () => {
     }
 
     const newUser = { email, password };
-    registerUser(newUser); // เรียกฟังก์ชันเพื่อส่งข้อมูลไปยัง backend
+    const isRegistered = saveUserToLocalStorage(newUser);
+
+    if (isRegistered) {
+      alert('Registration successful!');
+      navigate('/login'); // นำทางไปยังหน้า login หลังจากลงทะเบียนสำเร็จ
+    }
   };
 
   const togglePasswordVisibility = () => {

@@ -3,7 +3,6 @@ import { Visibility, VisibilityOff } from '@mui/icons-material';
 import IconButton from '@mui/material/IconButton';
 import { Link, useNavigate } from 'react-router-dom';
 import { UserContext } from '../../../App'; // ดึง UserContext มาใช้
-import axios from 'axios'; // นำเข้า axios สำหรับการส่ง HTTP requests
 
 const Login = () => {
   const { setUser } = useContext(UserContext); // ดึงฟังก์ชัน setUser จาก UserContext
@@ -12,25 +11,19 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     
-    try {
-      // ส่งข้อมูลเข้าสู่ระบบไปยัง backend Spring Boot API
-      const response = await axios.post('http://localhost:8080/api/auth/login', {
-        email: email,
-        password: password
-      });
+    // ดึงข้อมูลผู้ใช้จาก localStorage เพื่อตรวจสอบ
+    const users = JSON.parse(localStorage.getItem('users')) || [];
+    const user = users.find(user => user.email === email && user.password === password);
 
-      // จัดการ response ที่ได้รับจาก backend เช่นการตั้ง token หรือ session
-      const userData = response.data;
-      setUser(userData); // ตั้งค่าผู้ใช้ใน UserContext
-      console.log('Login successful!', userData);
-
-      // เปลี่ยนเส้นทางไปยังหน้า homepage
-      navigate('/homepage');
-    } catch (error) {
-      console.error('Invalid email or password', error);
+    if (user) {
+      console.log('Login successful!');
+      setUser(user); // ตั้งค่าผู้ใช้ใน UserContext
+      navigate('/homepage'); // นำทางไปยังหน้า homepage
+    } else {
+      console.error('Invalid email or password');
       alert('Invalid email or password');
     }
   };
