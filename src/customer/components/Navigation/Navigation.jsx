@@ -1,13 +1,13 @@
 import React, { useContext, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom'; 
-import { UserContext } from '../../../App'; // นำเข้า UserContext
+import { UserContext } from '../../../App';
 import {
   Dialog,
   DialogBackdrop,
   DialogPanel,
 } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
-import PropTypes from 'prop-types'; // เพิ่ม PropTypes สำหรับการตรวจสอบ prop
+import PropTypes from 'prop-types'; 
 
 const Navigation = () => {
   const [open, setOpen] = useState(false);
@@ -129,7 +129,7 @@ const Navigation = () => {
   );
 };
 
-// เพิ่ม PropTypes เพื่อตรวจสอบว่าข้อมูลผู้ใช้และฟังก์ชัน setUser ถูกต้อง
+
 Navigation.propTypes = {
   user: PropTypes.shape({
     email: PropTypes.string.isRequired,

@@ -1,16 +1,16 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { useNavigate } from 'react-router-dom'; // ใช้ useNavigate เพื่อนำทาง
+import { useNavigate } from 'react-router-dom';
 import id_Application from '../../../Data/id_Application';
 import id_program from '../../../Data/id_program';
 import id_Subscription from '../../../Data/id_Subscription'; 
 import id_Unbanned from '../../../Data/id_Unbanned';
-import { UserContext } from '../../../App'; // ดึงข้อมูลผู้ใช้ที่ล็อกอินจาก Context
-import PropTypes from 'prop-types'; // เพิ่ม PropTypes สำหรับการตรวจสอบ
+import { UserContext } from '../../../App'; 
+import PropTypes from 'prop-types'; 
 
 const OrderHistory = () => {
   const [orders, setOrders] = useState([]);
   const [search, setSearch] = useState('');
-  const navigate = useNavigate(); // สำหรับการนำทาง
+  const navigate = useNavigate(); 
   const { user } = useContext(UserContext); // ดึงข้อมูลผู้ใช้ที่ล็อกอินจาก Context
 
   useEffect(() => {
@@ -105,7 +105,7 @@ const OrderHistory = () => {
   );
 };
 
-// เพิ่ม PropTypes สำหรับตรวจสอบ prop
+
 OrderHistory.propTypes = {
   user: PropTypes.shape({
     email: PropTypes.string.isRequired,

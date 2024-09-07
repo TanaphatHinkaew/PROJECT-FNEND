@@ -142,7 +142,7 @@ const RegisPage = () => {
   );
 };
 
-// เพิ่ม PropTypes เพื่อให้แน่ใจว่ามีการใช้งาน props อย่างถูกต้อง (หากต้องการส่ง prop เข้ามา)
+
 RegisPage.propTypes = {
   email: PropTypes.string,
   password: PropTypes.string,

@@ -107,7 +107,7 @@ const Login = () => {
   );
 };
 
-// PropTypes validation
+
 Login.propTypes = {
   setUser: PropTypes.func.isRequired,
 };

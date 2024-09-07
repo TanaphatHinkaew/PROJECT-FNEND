@@ -4,8 +4,8 @@ import { Provider } from 'react-redux';
 import Navigation from './customer/components/Navigation/Navigation';
 import Footer from './customer/components/Footer/Footer';
 import CustomerRouters from './Routers/CustomerRouters';
-import { store } from './store/store'; // นำเข้า Redux Store
-import './App.css'; // นำเข้าไฟล์ CSS
+import { store } from './store/store';
+import './App.css'; 
 
 // สร้าง UserContext เพื่อเก็บสถานะของผู้ใช้
 export const UserContext = createContext();

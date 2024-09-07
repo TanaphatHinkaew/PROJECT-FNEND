@@ -1,12 +1,12 @@
 import React from 'react';
-import { useParams, useNavigate } from 'react-router-dom'; // ใช้ useParams เพื่อดึง ID จาก URL
-import swal from 'sweetalert'; // นำเข้าฟังก์ชัน swal เพื่อใช้แสดง alert
-import ArrowBackIcon from '@mui/icons-material/ArrowBack'; // นำเข้าไอคอนลูกศรกลับ
-import id_Application from '../../../Data/id_Application'; // นำเข้าข้อมูลสินค้า
-import id_program from '../../../Data/id_program'; // นำเข้าข้อมูลสินค้าโปรแกรม
-import id_Subscription from '../../../Data/id_Subscription'; // นำเข้าข้อมูลสินค้า Subscription
-import id_Unbanned from '../../../Data/id_Unbanned'; // นำเข้าข้อมูลสินค้า Unbanned
-import PropTypes from 'prop-types'; // เพิ่ม PropTypes สำหรับตรวจสอบ prop
+import { useParams, useNavigate } from 'react-router-dom';
+import swal from 'sweetalert'; 
+import ArrowBackIcon from '@mui/icons-material/ArrowBack'; 
+import id_Application from '../../../Data/id_Application'; 
+import id_program from '../../../Data/id_program'; 
+import id_Subscription from '../../../Data/id_Subscription';
+import id_Unbanned from '../../../Data/id_Unbanned'; 
+import PropTypes from 'prop-types'; 
 
 const ProductDetails = () => {
   const { id } = useParams(); // ดึง ID ของสินค้า
@@ -99,7 +99,7 @@ const ProductDetails = () => {
   );
 };
 
-// เพิ่ม PropTypes เพื่อตรวจสอบว่า prop มีรูปแบบที่ถูกต้อง
+
 ProductDetails.propTypes = {
   id: PropTypes.string,
   product: PropTypes.shape({

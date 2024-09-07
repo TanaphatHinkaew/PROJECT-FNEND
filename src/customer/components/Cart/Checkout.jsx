@@ -1,12 +1,12 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import swal from 'sweetalert'; // นำเข้า sweetalert
-import id_Application from '../../../Data/id_Application'; // นำเข้าข้อมูลสินค้า
-import id_program from '../../../Data/id_program'; // นำเข้าข้อมูลสินค้าโปรแกรม
-import id_Subscription from '../../../Data/id_Subscription'; // นำเข้าข้อมูลสินค้า Subscription
-import id_Unbanned from '../../../Data/id_Unbanned'; // นำเข้าข้อมูลสินค้า Unbanned
-import { UserContext } from '../../../App'; // นำเข้า UserContext
-import PropTypes from 'prop-types'; // นำเข้า PropTypes
+import swal from 'sweetalert'; 
+import id_Application from '../../../Data/id_Application'; 
+import id_program from '../../../Data/id_program'; 
+import id_Subscription from '../../../Data/id_Subscription'; 
+import id_Unbanned from '../../../Data/id_Unbanned'; 
+import { UserContext } from '../../../App'; 
+import PropTypes from 'prop-types'; 
 
 const allProducts = [...id_Application, ...id_program, ...id_Subscription, ...id_Unbanned]; // รวมสินค้าจากทุกแหล่งข้อมูล
 
