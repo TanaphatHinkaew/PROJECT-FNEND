@@ -7,6 +7,7 @@ import {
   DialogPanel,
 } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
+import PropTypes from 'prop-types'; // เพิ่ม PropTypes สำหรับการตรวจสอบ prop
 
 const Navigation = () => {
   const [open, setOpen] = useState(false);
@@ -41,10 +42,13 @@ const Navigation = () => {
     }
   };
 
-  // ฟังก์ชันออกจากระบบ
+  // ฟังก์ชันออกจากระบบ พร้อมการยืนยันก่อนออก
   const handleLogout = () => {
-    setUser(null); // ล้างข้อมูลผู้ใช้เมื่อออกจากระบบ
-    navigate('/');
+    const confirmed = window.confirm("Are you sure you want to log out?");
+    if (confirmed) {
+      setUser(null); // ล้างข้อมูลผู้ใช้เมื่อออกจากระบบ
+      navigate('/');
+    }
   };
 
   return (
@@ -123,6 +127,14 @@ const Navigation = () => {
       </header>
     </div>
   );
+};
+
+// เพิ่ม PropTypes เพื่อตรวจสอบว่าข้อมูลผู้ใช้และฟังก์ชัน setUser ถูกต้อง
+Navigation.propTypes = {
+  user: PropTypes.shape({
+    email: PropTypes.string.isRequired,
+  }),
+  setUser: PropTypes.func.isRequired,
 };
 
 export default Navigation;

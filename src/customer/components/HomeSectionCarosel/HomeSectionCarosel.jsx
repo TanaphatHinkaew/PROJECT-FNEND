@@ -1,8 +1,9 @@
 import React, { useState, useRef } from 'react';
-import AliceCarousel from 'react-alice-carousel'
-import HomeSectionCard from '../HomeSectionCard/HomeSectionCard'
+import AliceCarousel from 'react-alice-carousel';
+import HomeSectionCard from '../HomeSectionCard/HomeSectionCard';
 import Button from '@mui/material/Button';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
+import PropTypes from 'prop-types';
 
 const HomeSectionCarosel = ({ data, SelectionName }) => {
     const [activeIndex, setActiveIndex] = useState(0);
@@ -89,6 +90,18 @@ const HomeSectionCarosel = ({ data, SelectionName }) => {
             </div>
         </div>
     );
-}
+};
+
+// เพิ่ม PropTypes เพื่อตรวจสอบ data และ SelectionName
+HomeSectionCarosel.propTypes = {
+    data: PropTypes.arrayOf(
+        PropTypes.shape({
+            imageUrl: PropTypes.string.isRequired,
+            brand: PropTypes.string.isRequired,
+            title: PropTypes.string.isRequired,
+        })
+    ).isRequired,
+    SelectionName: PropTypes.string.isRequired,
+};
 
 export default HomeSectionCarosel;

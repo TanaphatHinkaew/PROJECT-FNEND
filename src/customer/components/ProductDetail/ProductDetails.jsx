@@ -6,6 +6,7 @@ import id_Application from '../../../Data/id_Application'; // นำเข้า
 import id_program from '../../../Data/id_program'; // นำเข้าข้อมูลสินค้าโปรแกรม
 import id_Subscription from '../../../Data/id_Subscription'; // นำเข้าข้อมูลสินค้า Subscription
 import id_Unbanned from '../../../Data/id_Unbanned'; // นำเข้าข้อมูลสินค้า Unbanned
+import PropTypes from 'prop-types'; // เพิ่ม PropTypes สำหรับตรวจสอบ prop
 
 const ProductDetails = () => {
   const { id } = useParams(); // ดึง ID ของสินค้า
@@ -33,7 +34,11 @@ const ProductDetails = () => {
   };
 
   if (!product) {
-    return <div>ไม่พบสินค้า</div>; // แสดงข้อความหากไม่พบสินค้า
+    // เพิ่มการแสดงแจ้งเตือนเมื่อไม่พบสินค้า
+    swal("ไม่พบสินค้า", "สินค้าที่คุณค้นหาไม่พบ", "error").then(() => {
+      navigate('/'); // กลับไปยังหน้าหลักหลังจากแสดง alert
+    });
+    return null;
   }
 
   return (
@@ -46,7 +51,7 @@ const ProductDetails = () => {
             className="cursor-pointer text-gray-600 hover:text-gray-800 ml-40" 
             style={{ fontSize: '2rem', marginRight: '8px' }} 
           />
-          <ol className=" max-w-2xl items-center space-x-2 px-4 sm:px-6 lg:max-w-7xl lg:px-8 ml-4">
+          <ol className="max-w-2xl items-center space-x-2 px-4 sm:px-6 lg:max-w-7xl lg:px-8 ml-4">
             <li className="text-sm">
               <a href="/" className="font-medium text-gray-500 hover:text-gray-600">{product.brand}</a>
             </li>
@@ -83,17 +88,29 @@ const ProductDetails = () => {
             {/* ปุ่มซื้อ */}
             <button 
               onClick={handleBuy} 
-               // ปิดการทำงานของปุ่มเมื่อสินค้าหมด
+              // ปิดการทำงานของปุ่มเมื่อสินค้าหมด
               className={`mt-10 flex w-full items-center justify-center rounded-md px-8 py-3 text-base font-medium text-white ${product.stock > 0 ? 'bg-indigo-600 hover:bg-indigo-700' : 'bg-gray-400 cursor-not-allowed'}`}>
               ซื้อ
             </button>
-
           </div>
         </section>
       </div>
     </div>
-    
   );
+};
+
+// เพิ่ม PropTypes เพื่อตรวจสอบว่า prop มีรูปแบบที่ถูกต้อง
+ProductDetails.propTypes = {
+  id: PropTypes.string,
+  product: PropTypes.shape({
+    brand: PropTypes.string.isRequired,
+    imageUrl: PropTypes.string.isRequired,
+    details: PropTypes.string.isRequired,
+    discountedPrice: PropTypes.number.isRequired,
+    price: PropTypes.number.isRequired,
+    discountPersent: PropTypes.number.isRequired,
+    stock: PropTypes.number,
+  }),
 };
 
 export default ProductDetails;

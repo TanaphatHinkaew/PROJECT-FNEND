@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import IconButton from '@mui/material/IconButton';
 import { Link, useNavigate } from 'react-router-dom'; // เพิ่ม useNavigate สำหรับการนำทาง
+import PropTypes from 'prop-types'; // เพิ่ม PropTypes สำหรับการตรวจสอบ prop
 
 const RegisPage = () => {
   const [email, setEmail] = useState('');
@@ -122,6 +123,13 @@ const RegisPage = () => {
       </div>
     </div>
   );
+};
+
+// เพิ่ม PropTypes เพื่อให้แน่ใจว่ามีการใช้งาน props อย่างถูกต้อง (หากต้องการส่ง prop เข้ามา)
+RegisPage.propTypes = {
+  email: PropTypes.string,
+  password: PropTypes.string,
+  confirmPassword: PropTypes.string,
 };
 
 export default RegisPage;

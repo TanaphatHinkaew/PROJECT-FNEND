@@ -3,6 +3,7 @@ import { Visibility, VisibilityOff } from '@mui/icons-material';
 import IconButton from '@mui/material/IconButton';
 import { Link, useNavigate } from 'react-router-dom';
 import { UserContext } from '../../../App'; // ดึง UserContext มาใช้
+import PropTypes from 'prop-types'; // เพิ่ม PropTypes สำหรับการตรวจสอบ prop
 
 const Login = () => {
   const { setUser } = useContext(UserContext); // ดึงฟังก์ชัน setUser จาก UserContext
@@ -24,7 +25,7 @@ const Login = () => {
       navigate('/homepage'); // นำทางไปยังหน้า homepage
     } else {
       console.error('Invalid email or password');
-      alert('Invalid email or password');
+      alert('Invalid email or password'); // คุณสามารถแทนที่ด้วยการแสดง error ใน UI
     }
   };
 
@@ -97,6 +98,11 @@ const Login = () => {
       </div>
     </div>
   );
+};
+
+// เพิ่ม PropTypes เพื่อตรวจสอบข้อมูลของ UserContext (ถ้ามีการส่ง prop)
+Login.propTypes = {
+  setUser: PropTypes.func.isRequired,
 };
 
 export default Login;

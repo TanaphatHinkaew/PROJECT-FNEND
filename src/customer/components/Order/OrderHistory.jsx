@@ -5,6 +5,7 @@ import id_program from '../../../Data/id_program';
 import id_Subscription from '../../../Data/id_Subscription'; 
 import id_Unbanned from '../../../Data/id_Unbanned';
 import { UserContext } from '../../../App'; // ดึงข้อมูลผู้ใช้ที่ล็อกอินจาก Context
+import PropTypes from 'prop-types'; // เพิ่ม PropTypes สำหรับการตรวจสอบ
 
 const OrderHistory = () => {
   const [orders, setOrders] = useState([]);
@@ -40,7 +41,7 @@ const OrderHistory = () => {
 
     return {
       ...order,
-      imageUrl: productData ? productData.imageUrl : '',
+      imageUrl: productData ? productData.imageUrl : 'https://via.placeholder.com/150', // กรณีไม่มีภาพสินค้า
       details: productData ? productData.details : 'No additional details',
       discountedPrice: productData ? productData.discountedPrice : order.price,
       originalPrice: productData ? productData.price : order.price,
@@ -102,6 +103,13 @@ const OrderHistory = () => {
       </div>
     </div>
   );
+};
+
+// เพิ่ม PropTypes สำหรับตรวจสอบ prop
+OrderHistory.propTypes = {
+  user: PropTypes.shape({
+    email: PropTypes.string.isRequired,
+  }),
 };
 
 export default OrderHistory;

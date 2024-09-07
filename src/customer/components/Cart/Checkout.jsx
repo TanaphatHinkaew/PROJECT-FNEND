@@ -6,6 +6,7 @@ import id_program from '../../../Data/id_program'; // นำเข้าข้�
 import id_Subscription from '../../../Data/id_Subscription'; // นำเข้าข้อมูลสินค้า Subscription
 import id_Unbanned from '../../../Data/id_Unbanned'; // นำเข้าข้อมูลสินค้า Unbanned
 import { UserContext } from '../../../App'; // นำเข้า UserContext
+import PropTypes from 'prop-types'; // นำเข้า PropTypes
 
 const allProducts = [...id_Application, ...id_program, ...id_Subscription, ...id_Unbanned]; // รวมสินค้าจากทุกแหล่งข้อมูล
 
@@ -153,6 +154,25 @@ const Checkout = () => {
       </button>
     </div>
   );
+};
+
+// เพิ่มการใช้ PropTypes
+Checkout.propTypes = {
+  location: PropTypes.shape({
+    state: PropTypes.shape({
+      product: PropTypes.shape({
+        id: PropTypes.number,
+        brand: PropTypes.string,
+        imageUrl: PropTypes.string,
+        details: PropTypes.string,
+        discountedPrice: PropTypes.number,
+        stock: PropTypes.number,
+      }),
+    }),
+  }),
+  user: PropTypes.shape({
+    email: PropTypes.string,
+  }),
 };
 
 export default Checkout;
