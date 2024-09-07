@@ -2,11 +2,12 @@ import React, { useState, useContext } from 'react';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import IconButton from '@mui/material/IconButton';
 import { Link, useNavigate } from 'react-router-dom';
-import { UserContext } from '../../../App'; // ดึง UserContext มาใช้
-import PropTypes from 'prop-types'; // เพิ่ม PropTypes สำหรับการตรวจสอบ prop
+import { UserContext } from '../../../App';
+import PropTypes from 'prop-types';
+import swal from 'sweetalert';
 
 const Login = () => {
-  const { setUser } = useContext(UserContext); // ดึงฟังก์ชัน setUser จาก UserContext
+  const { setUser } = useContext(UserContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -15,17 +16,26 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     
-    // ดึงข้อมูลผู้ใช้จาก localStorage เพื่อตรวจสอบ
     const users = JSON.parse(localStorage.getItem('users')) || [];
     const user = users.find(user => user.email === email && user.password === password);
 
     if (user) {
-      console.log('Login successful!');
-      setUser(user); // ตั้งค่าผู้ใช้ใน UserContext
-      navigate('/homepage'); // นำทางไปยังหน้า homepage
+      setUser(user);
+      swal({
+        title: "Login Successful!",
+        text: "You will be redirected to the homepage.",
+        icon: "success",
+        button: "OK",
+      }).then(() => {
+        navigate('/homepage');
+      });
     } else {
-      console.error('Invalid email or password');
-      alert('Invalid email or password'); // คุณสามารถแทนที่ด้วยการแสดง error ใน UI
+      swal({
+        title: "Error!",
+        text: "อีเมลหรือพาสเวิร์ดไม่ถูกต้อง กรุณาลองใหม่",
+        icon: "error",
+        button: "ลองใหม่",
+      });
     }
   };
 
@@ -83,9 +93,6 @@ const Login = () => {
             >
               Login
             </button>
-            <a href="#" className="text-sm text-blue-500 hover:underline">
-              Forgot password?
-            </a>
           </div>
 
           {/* Link to Registration Page */}
@@ -100,7 +107,7 @@ const Login = () => {
   );
 };
 
-// เพิ่ม PropTypes เพื่อตรวจสอบข้อมูลของ UserContext (ถ้ามีการส่ง prop)
+// PropTypes validation
 Login.propTypes = {
   setUser: PropTypes.func.isRequired,
 };

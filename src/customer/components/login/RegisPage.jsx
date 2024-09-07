@@ -3,6 +3,7 @@ import { Visibility, VisibilityOff } from '@mui/icons-material';
 import IconButton from '@mui/material/IconButton';
 import { Link, useNavigate } from 'react-router-dom'; // เพิ่ม useNavigate สำหรับการนำทาง
 import PropTypes from 'prop-types'; // เพิ่ม PropTypes สำหรับการตรวจสอบ prop
+import swal from 'sweetalert'; // เพิ่ม sweetalert
 
 const RegisPage = () => {
   const [email, setEmail] = useState('');
@@ -19,7 +20,12 @@ const RegisPage = () => {
     const isEmailTaken = existingUsers.some(user => user.email === newUser.email);
     
     if (isEmailTaken) {
-      alert('This email is already registered. Please use a different email.');
+      swal({
+        title: "Email Taken",
+        text: "This email is already registered. Please use a different email.",
+        icon: "error",
+        button: "Try Again",
+      });
       return false;
     }
 
@@ -33,7 +39,12 @@ const RegisPage = () => {
     e.preventDefault();
 
     if (password !== confirmPassword) {
-      alert('Passwords do not match!');
+      swal({
+        title: "Password Mismatch",
+        text: "Passwords do not match!",
+        icon: "error",
+        button: "Try Again",
+      });
       return;
     }
 
@@ -41,8 +52,14 @@ const RegisPage = () => {
     const isRegistered = saveUserToLocalStorage(newUser);
 
     if (isRegistered) {
-      alert('Registration successful!');
-      navigate('/login'); // นำทางไปยังหน้า login หลังจากลงทะเบียนสำเร็จ
+      swal({
+        title: "Registration Successful!",
+        text: "You will be redirected to the login page.",
+        icon: "success",
+        button: "OK",
+      }).then(() => {
+        navigate('/login'); // นำทางไปยังหน้า login หลังจากลงทะเบียนสำเร็จ
+      });
     }
   };
 
