@@ -6,6 +6,7 @@ import LoginPage from '../customer/components/login/loginPage';
 import RegisPage from '../customer/components/login/RegisPage';
 import OrderHistory from '../customer/components/Order/OrderHistory';
 import Checkout from '../customer/components/Cart/Checkout';
+import AddProduct from '../customer/components/AddProduct/AddProduct';
 
 const CustomerRouters = () => {
   return (
@@ -16,6 +17,7 @@ const CustomerRouters = () => {
       <Route path="/orderhistory" element={<OrderHistory />} />
       <Route path="/product/:id" element={<ProductDetails />} /> {/* เส้นทางสำหรับแสดงรายละเอียดสินค้า */}
       <Route path="/checkout" element={<Checkout />} />
+      <Route path="/addproduct" element={<AddProduct />} />
       <Route path="*" element={<HomePage />} /> {/* เส้นทางเริ่มต้น */}
     </Routes>
   );

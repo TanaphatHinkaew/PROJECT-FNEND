@@ -43,10 +43,10 @@ const ProductDetails = () => {
           {/* เพิ่มไอคอน ArrowBackIcon */}
           <ArrowBackIcon 
             onClick={handleGoBack} 
-            className="cursor-pointer text-gray-600 hover:text-gray-800" 
+            className="cursor-pointer text-gray-600 hover:text-gray-800 ml-40" 
             style={{ fontSize: '2rem', marginRight: '8px' }} 
           />
-          <ol className="mx-auto flex max-w-2xl items-center space-x-2 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
+          <ol className=" max-w-2xl items-center space-x-2 px-4 sm:px-6 lg:max-w-7xl lg:px-8 ml-4">
             <li className="text-sm">
               <a href="/" className="font-medium text-gray-500 hover:text-gray-600">{product.brand}</a>
             </li>
